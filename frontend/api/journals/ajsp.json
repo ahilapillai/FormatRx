@@ -1,0 +1,21 @@
+{
+  "journal_name": "American Journal of Surgical Pathology",
+  "journal_id": "ajsp",
+  "abstract_type": "unstructured",
+  "abstract_word_limit": 250,
+  "word_limit": 4000,
+  "reference_style": "Vancouver",
+  "sections_required": ["Introduction", "Materials and Methods", "Results", "Discussion"],
+  "sections_order": ["Abstract", "Introduction", "Materials and Methods", "Results", "Discussion", "References", "Figure Legends"],
+  "heading_case": "upper",
+  "figure_limit": 10,
+  "table_limit": 8,
+  "reference_format": {
+    "style": "Vancouver",
+    "numbered": true,
+    "brackets": "inline",
+    "example": "1. Smith J, Doe A. Title of article. Am J Surg Pathol. 2020;44(2):100-110."
+  },
+  "abstract_sections": [],
+  "notes": "AJSP uses unstructured abstracts. Section headings should be ALL CAPS. References are numbered inline."
+}
