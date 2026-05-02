@@ -1,0 +1,21 @@
+{
+  "journal_name": "Cureus",
+  "journal_id": "cureus",
+  "abstract_type": "structured",
+  "abstract_word_limit": 300,
+  "word_limit": 3000,
+  "reference_style": "Vancouver",
+  "sections_required": ["Introduction", "Case Presentation", "Discussion", "Conclusions"],
+  "sections_order": ["Abstract", "Introduction", "Case Presentation", "Discussion", "Conclusions", "References"],
+  "heading_case": "title",
+  "figure_limit": 5,
+  "table_limit": 5,
+  "reference_format": {
+    "style": "Vancouver",
+    "numbered": true,
+    "brackets": "superscript",
+    "example": "Smith J, Doe A. Title of article. J Name. 2020;10(2):100-110."
+  },
+  "abstract_sections": ["Background", "Methods", "Results", "Conclusions"],
+  "notes": "Cureus uses structured abstracts with numbered Vancouver references. Section headings should be in Title Case."
+}

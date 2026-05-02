@@ -1,0 +1,53 @@
+{
+  "journal_name": "Journal of Madras Medical College - Medicine",
+  "journal_id": "jmmcmed",
+  "publisher": "Wolters Kluwer / LWW",
+  "issn_online": "7700-8888",
+  "abstract_type": "structured",
+  "abstract_word_limit": 250,
+  "word_limit": 3000,
+  "reference_style": "Vancouver",
+  "sections_required": [
+    "Introduction",
+    "Materials and Methods",
+    "Results",
+    "Discussion",
+    "Conclusions"
+  ],
+  "sections_order": [
+    "Abstract",
+    "Introduction",
+    "Materials and Methods",
+    "Results",
+    "Discussion",
+    "Conclusions",
+    "Acknowledgements",
+    "References",
+    "Figure Legends",
+    "Tables"
+  ],
+  "heading_case": "title",
+  "figure_limit": 6,
+  "table_limit": 6,
+  "reference_format": {
+    "style": "Vancouver",
+    "numbered": true,
+    "brackets": "superscript",
+    "example": "Smith J, Doe A. Title of article. J Madras Med Coll Med. 2026;1(1):1-10."
+  },
+  "abstract_sections": [
+    "Background",
+    "Methods",
+    "Results",
+    "Conclusions"
+  ],
+  "notes": "Brand-new LWW journal (Vol 1 Issue 1, Jan-Mar 2026). Rules derived from standard LWW/ICMJE conventions. Confirm word limit, figure limit, and abstract structure against official author guidelines once published at https://journals.lww.com/jmmcmed/pages/informationforauthors.aspx",
+  "_confirm_when_guidelines_published": [
+    "word_limit",
+    "abstract_word_limit",
+    "figure_limit",
+    "table_limit",
+    "abstract_sections",
+    "sections_required"
+  ]
+}
