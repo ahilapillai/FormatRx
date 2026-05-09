@@ -12,12 +12,25 @@ JOURNALS_DIR = Path(__file__).parent / "journals"
 
 
 def list_journals() -> list[dict]:
-    """Return a list of available journals with id and name."""
+    """Return a list of available journals with id, name, and metadata for the selector UI."""
     journals = []
     for f in sorted(JOURNALS_DIR.glob("*.json")):
         try:
             data = json.loads(f.read_text())
-            journals.append({"id": data["journal_id"], "name": data["journal_name"]})
+            journals.append({
+                "id": data["journal_id"],
+                "name": data["journal_name"],
+                "publisher": data.get("publisher"),
+                "indexing": data.get("indexing", []),
+                "impact_factor": data.get("impact_factor"),
+                "sjr": data.get("sjr"),
+                "cite_score": data.get("cite_score"),
+                "open_access": data.get("open_access", False),
+                "new_journal": data.get("new_journal", False),
+                "word_limit": data.get("word_limit"),
+                "reference_style": data.get("reference_style"),
+                "abstract_type": data.get("abstract_type"),
+            })
         except Exception:
             pass
     return journals

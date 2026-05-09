@@ -41,7 +41,13 @@
     "Results",
     "Conclusions"
   ],
-  "notes": "Brand-new LWW journal (Vol 1 Issue 1, Jan-Mar 2026). Rules derived from standard LWW/ICMJE conventions. Confirm word limit, figure limit, and abstract structure against official author guidelines once published at https://journals.lww.com/jmmcmed/pages/informationforauthors.aspx",
+  "indexing": [],
+  "impact_factor": null,
+  "sjr": null,
+  "cite_score": null,
+  "open_access": false,
+  "new_journal": true,
+  "notes": "Brand-new LWW journal (Vol 1 Issue 1, Jan-Mar 2026). Rules derived from standard LWW/ICMJE conventions. Not yet indexed — indexing pending. Confirm word limit, figure limit, and abstract structure against official author guidelines once published at https://journals.lww.com/jmmcmed/pages/informationforauthors.aspx",
   "_confirm_when_guidelines_published": [
     "word_limit",
     "abstract_word_limit",

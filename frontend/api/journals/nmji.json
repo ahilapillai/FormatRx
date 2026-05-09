@@ -1,0 +1,36 @@
+{
+  "journal_id": "nmji",
+  "journal_name": "National Medical Journal of India",
+  "publisher": "Wolters Kluwer / Medknow",
+  "issn": "0970-258X",
+  "reference_style": "Vancouver",
+  "word_limit": 3000,
+  "abstract_word_limit": 250,
+  "abstract_type": "structured",
+  "abstract_sections": ["Background", "Methods", "Results", "Conclusion"],
+  "heading_case": "upper",
+  "sections_required": [
+    "Introduction",
+    "Methods",
+    "Results",
+    "Discussion",
+    "References"
+  ],
+  "sections_order": [
+    "Introduction",
+    "Methods",
+    "Results",
+    "Discussion",
+    "Conclusion",
+    "Acknowledgements",
+    "References"
+  ],
+  "figure_limit": 4,
+  "table_limit": 4,
+  "indexing": ["PubMed", "MEDLINE", "Scopus"],
+  "impact_factor": null,
+  "sjr": 0.21,
+  "cite_score": 0.4,
+  "open_access": false,
+  "notes": "Original articles: max 3000 words, structured abstract 250 words, Vancouver references, max 40 references, max 4 figures, max 4 tables."
+}

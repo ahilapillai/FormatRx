@@ -1,6 +1,8 @@
 {
   "journal_name": "Cureus",
   "journal_id": "cureus",
+  "publisher": "Springer Nature",
+  "issn": "2168-8184",
   "abstract_type": "structured",
   "abstract_word_limit": 300,
   "word_limit": 3000,
@@ -17,5 +19,10 @@
     "example": "Smith J, Doe A. Title of article. J Name. 2020;10(2):100-110."
   },
   "abstract_sections": ["Background", "Methods", "Results", "Conclusions"],
-  "notes": "Cureus uses structured abstracts with numbered Vancouver references. Section headings should be in Title Case."
+  "indexing": ["PubMed", "Scopus", "DOAJ", "Web of Science"],
+  "impact_factor": 1.6,
+  "sjr": 0.37,
+  "cite_score": 2.1,
+  "open_access": true,
+  "notes": "Cureus uses structured abstracts with numbered Vancouver references. Section headings should be in Title Case. Open-access journal with APC."
 }
