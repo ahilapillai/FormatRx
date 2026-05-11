@@ -200,12 +200,52 @@ function SectionRow({ left, right, isHeading = false }) {
   )
 }
 
+// ─── Image-aware content renderer ────────────────────────────────────────────
+// Splits text on [[IMG:id]] tokens and renders images inline.
+function ContentWithImages({ text, imageMap, className = '' }) {
+  if (!text) return <span className="text-slate-400 text-sm">—</span>
+  if (!imageMap || Object.keys(imageMap).length === 0) {
+    return <span className={`whitespace-pre-wrap text-slate-600 text-sm leading-relaxed ${className}`}>{text}</span>
+  }
+
+  const parts = text.split(/(\[\[IMG:[^\]]+\]\])/g)
+  if (parts.length === 1) {
+    return <span className={`whitespace-pre-wrap text-slate-600 text-sm leading-relaxed ${className}`}>{text}</span>
+  }
+
+  return (
+    <span className={`text-sm leading-relaxed ${className}`}>
+      {parts.map((part, i) => {
+        const m = part.match(/^\[\[IMG:([^\]]+)\]\]$/)
+        if (m) {
+          const src = imageMap[m[1]]
+          if (!src) return null
+          return (
+            <span key={i} className="block my-3">
+              <img
+                src={src}
+                alt="Figure from document"
+                className="max-w-full h-auto rounded border border-slate-200 shadow-sm"
+                style={{ maxHeight: '400px', objectFit: 'contain' }}
+              />
+            </span>
+          )
+        }
+        return part
+          ? <span key={i} className="whitespace-pre-wrap text-slate-600">{part}</span>
+          : null
+      })}
+    </span>
+  )
+}
+
 // ─── Main DiffViewerStep ──────────────────────────────────────────────────────
 export default function DiffViewerStep({
   originalManuscript,
   formattedManuscript,
   initialChanges,
   journalId,
+  imageMap = {},
   onComplete,
   onBack,
 }) {
@@ -330,7 +370,7 @@ export default function DiffViewerStep({
     return <HighlightedBlock change={change} onOpen={openPopover}>{inner}</HighlightedBlock>
   }
   function renderOrig(text) {
-    return <span className="whitespace-pre-wrap text-slate-600 text-sm leading-relaxed">{text || '—'}</span>
+    return <ContentWithImages text={text || '—'} imageMap={imageMap} />
   }
 
   // Abstract change
@@ -448,7 +488,11 @@ export default function DiffViewerStep({
             />
             <SectionRow
               left={renderOrig(origSec.content)}
-              right={<p className="text-sm leading-relaxed">{renderRight(fmtSec.content, contentCh)}</p>}
+              right={
+                contentCh
+                  ? <p className="text-sm leading-relaxed">{renderRight(fmtSec.content, contentCh)}</p>
+                  : <ContentWithImages text={fmtSec.content} imageMap={imageMap} />
+              }
             />
           </React.Fragment>
         ))}

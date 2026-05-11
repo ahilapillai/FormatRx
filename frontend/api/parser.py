@@ -7,8 +7,10 @@ Robust mode: handles documents that use bold/all-caps text instead of Word headi
 """
 
 import re
+import base64
 from docx import Document
 from docx.shared import Pt
+from docx.oxml.ns import qn
 from typing import Optional, List
 
 
@@ -101,6 +103,35 @@ def _para_text(para) -> str:
     return para.text.strip()
 
 
+def _extract_para_images(para, doc_part, image_map: dict) -> list:
+    """
+    Detect inline images in a paragraph's runs (w:drawing elements).
+    Extracts each image as a base64 data URI, stores it in image_map,
+    and returns a list of '[[IMG:id]]' placeholder strings.
+    """
+    placeholders = []
+    for run in para.runs:
+        for child in run._element:
+            if child.tag != qn('w:drawing'):
+                continue
+            for blip in child.iter(qn('a:blip')):
+                r_id = blip.get(qn('r:embed'))
+                if not r_id:
+                    continue
+                try:
+                    rel = doc_part.rels.get(r_id)
+                    if rel and 'image' in rel.reltype.lower():
+                        img_bytes = rel.target_part.blob
+                        mime = rel.target_part.content_type or 'image/png'
+                        img_id = f"img_{len(image_map)}"
+                        b64 = base64.b64encode(img_bytes).decode('utf-8')
+                        image_map[img_id] = f"data:{mime};base64,{b64}"
+                        placeholders.append(f"[[IMG:{img_id}]]")
+                except Exception:
+                    pass
+    return placeholders
+
+
 # ---------------------------------------------------------------------------
 # Main parser
 # ---------------------------------------------------------------------------
@@ -123,6 +154,7 @@ def parse_docx(file_path: str) -> dict:
     """
     doc = Document(file_path)
     paragraphs = doc.paragraphs
+    image_map: dict = {}   # img_id -> data URI
 
     result: dict = {
         "title": "",
@@ -133,6 +165,7 @@ def parse_docx(file_path: str) -> dict:
         "word_count": 0,
         "raw_paragraphs": len(paragraphs),
         "parse_warnings": [],
+        "image_map": image_map,
     }
 
     current_heading: Optional[str] = None
@@ -163,7 +196,16 @@ def parse_docx(file_path: str) -> dict:
 
     for para in paragraphs:
         text = _para_text(para)
+
+        # Extract any inline images from this paragraph
+        img_placeholders = _extract_para_images(para, doc.part, image_map)
+
+        # If the paragraph is image-only (no text), inject placeholders into current section
         if not text:
+            if img_placeholders and current_heading is not None:
+                current_content.extend(img_placeholders)
+            elif img_placeholders and in_abstract:
+                abstract_content.extend(img_placeholders)
             continue
 
         lower = text.lower().strip(":. ")
@@ -227,11 +269,14 @@ def parse_docx(file_path: str) -> dict:
             if current_heading is None and current_content:
                 # Free-floating paragraphs before any heading — treat as body
                 current_content.append(text)
+                current_content.extend(img_placeholders)
             elif current_heading is None:
                 # Could be the abstract if "Abstract" heading was missed
                 abstract_content.append(text)
+                abstract_content.extend(img_placeholders)
             else:
                 current_content.append(text)
+                current_content.extend(img_placeholders)
 
     flush_section()
 

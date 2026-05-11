@@ -20,7 +20,11 @@ export default function UploadStep({ onComplete }) {
       if (result.manuscript?.parse_warnings?.length) {
         console.warn('Parse warnings:', result.manuscript.parse_warnings)
       }
-      onComplete({ manuscript: result.manuscript, filename: result.filename })
+      onComplete({
+        manuscript: result.manuscript,
+        imageMap: result.image_map || {},
+        filename: result.filename,
+      })
     } catch (e) {
       if (!e.response) {
         // Network error = backend not running

@@ -128,7 +128,11 @@ async def parse_manuscript(file: UploadFile = File(...)):
             "No structured content detected. The document may lack proper section headings."
         )
 
-    return {"manuscript": parsed, "filename": file.filename}
+    # Pull image_map out of the manuscript object so it doesn't bloat
+    # subsequent format/apply-changes API calls (which only need text).
+    image_map = parsed.pop("image_map", {})
+
+    return {"manuscript": parsed, "image_map": image_map, "filename": file.filename}
 
 
 @app.post("/api/format")

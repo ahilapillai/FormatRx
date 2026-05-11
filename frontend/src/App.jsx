@@ -12,6 +12,7 @@ const INITIAL_STATE = {
   step: 1,
   manuscript: null,
   filename: '',
+  imageMap: {},
   journalId: null,
   mode: 'format_only',
   formattedManuscript: null,
@@ -79,7 +80,9 @@ export default function App() {
         {/* Step 1 — Upload */}
         {step === 1 && (
           <UploadStep
-            onComplete={({ manuscript, filename }) => update({ manuscript, filename, step: 2 })}
+            onComplete={({ manuscript, imageMap, filename }) =>
+              update({ manuscript, imageMap: imageMap || {}, filename, step: 2 })
+            }
           />
         )}
 
@@ -121,6 +124,7 @@ export default function App() {
             formattedManuscript={state.formattedManuscript}
             initialChanges={state.changes}
             journalId={state.journalId}
+            imageMap={state.imageMap}
             onComplete={({ finalManuscript, changes }) =>
               update({ finalManuscript, changes, step: 6 })
             }
